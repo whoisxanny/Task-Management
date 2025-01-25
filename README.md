@@ -1,129 +1,112 @@
-Task Management System
+# Task Management System
 
-Description and Objectives
+## Description and Objectives
+The **Task Management System** is a web application designed for managing and organizing tasks efficiently. It provides functionality for creating, updating, and managing tasks, comments, and users with secure authentication and role-based access. The goal of this project is to develop a robust and scalable backend system that supports comprehensive task management workflows.
 
-The Task Management System is a web application designed to help users manage tasks effectively. It provides a platform for users to create, manage, and track tasks, as well as collaborate with others through role-based access controls. The primary objective is to implement a secure, scalable, and user-friendly application that simplifies task management for individuals and organizations.
+## Features
 
-Key Features
+### Functionality for Unauthorized Users:
+- Ability to register a new account.
+- Access to Swagger UI documentation.
 
-Functionality for Unauthorized Users:
+### Functionality for Authorized Users:
+- **Authentication and Authorization:**
+  - User login using JWT tokens.
+  - Secure password storage with BCrypt encryption.
+- **Task Management:**
+  - Create, view, update, and delete tasks.
+  - Assign tasks to specific users.
+  - Add deadlines and priorities to tasks.
+- **Comment Management:**
+  - Add comments to tasks.
+  - Edit and delete your own comments.
+- **Pagination and Filtering:**
+  - View tasks with support for pagination and filtering.
 
-Access public endpoints such as authentication and API documentation.
+### Functionality for Administrators:
+- **User Management:**
+  - View and manage all user accounts.
+- **Task and Comment Moderation:**
+  - Edit and delete any task or comment in the system.
 
-Functionality for Authorized Users:
+## Technologies Used
+- **Programming Language:** Java 17+
+- **Frameworks and Libraries:**
+  - Spring Boot (including Spring Security, Spring Data JPA, and Spring Validation)
+  - JJWT for token-based authentication
+  - ModelMapper for object mapping
+  - MapStruct for DTO conversion
+  - SpringDoc for API documentation (Swagger UI)
+- **Database:** PostgreSQL
+- **Build Tool:** Maven
+- **Containerization:** Docker, Docker Compose
+- **Others:** Lombok, BCryptPasswordEncoder
 
-User registration and login using JWT-based authentication.
+## How to Run the Application
 
-Create, update, and delete tasks with associated details.
+### Prerequisites
+- Install Java 17 or higher.
+- Install Maven.
+- Install Docker and Docker Compose.
+- Configure a PostgreSQL database.
 
-Add, edit, and delete comments on tasks.
+### Steps to Launch
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd task-management-system
+   ```
+3. Configure the database connection in `application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://<host>:<port>/<database>
+   spring.datasource.username=<username>
+   spring.datasource.password=<password>
+   ```
+4. Build the project:
+   ```bash
+   mvn clean install
+   ```
+5. Start the application using Docker Compose:
+   ```bash
+   docker-compose up
+   ```
+6. Access the application:
+   - Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
-View and filter tasks with pagination support.
+## API Endpoints
 
-Functionality for Administrators:
+### Authentication
+- `POST /auth/login`: Authenticate user and return JWT tokens.
+- `POST /auth/register`: Register a new user.
+- `POST /auth/refresh`: Refresh access and refresh tokens.
 
-Manage user roles and permissions.
+### Task Management
+- `GET /tasks`: Retrieve tasks with filtering and pagination.
+- `POST /tasks`: Create a new task.
+- `PUT /tasks/{taskId}`: Update an existing task.
+- `DELETE /tasks/{taskId}`: Delete a task.
 
-Edit or delete any user's comments or tasks.
+### Comment Management
+- `POST /tasks/{taskId}/comments`: Add a comment to a task.
+- `PUT /comments/{commentId}`: Update a comment.
+- `DELETE /comments/{commentId}`: Delete a comment.
 
-Launching the Application
+## Security Configuration
+- **JWT Authentication:**
+  - Stateless session management with tokens.
+  - Custom `JWTFilter` for token validation and setting authentication context.
+  - Role-based access control with predefined roles (USER, ADMIN).
+- **Password Encoding:**
+  - BCryptPasswordEncoder for secure password storage.
 
-Prerequisites:
+### Open API Documentation
+The application uses SpringDoc to provide interactive API documentation via Swagger UI.
 
-Java 17+
+## Project Team
+- **Allan Allanazarov**: Developer
 
-Maven
 
-Docker and Docker Compose
-
-Steps:
-
-Clone the repository:
-
-git clone <repository-url>
-
-Configure the database connection:
-Update the application.properties file with your PostgreSQL or MySQL credentials.
-
-Run the application with Docker Compose:
-
-docker-compose up --build
-
-Access the application:
-
-Swagger UI: http://localhost:8080/swagger-ui/index.html
-
-Technologies Used
-
-Java 17: Core programming language
-
-Spring Boot 3.4.1: Framework for building the application
-
-Spring Security: Handles authentication and authorization
-
-Spring JPA: Manages database interactions
-
-PostgreSQL: Database for storing application data
-
-Docker Compose: Orchestrates multi-container deployments
-
-JWT (Json Web Tokens): Secures endpoints and manages user sessions
-
-Springdoc (OpenAPI): API documentation
-
-Mapstruct: Simplifies object mapping
-
-ModelMapper: Enhances data transformations
-
-Lombok: Reduces boilerplate code
-
-JUnit: Unit testing framework
-
-Project Structure
-
-Security Features:
-
-Stateless JWT-based authentication with JWTProvider and JWTFilter.
-
-Role-based access control for fine-grained permissions.
-
-Protection against unauthorized and forbidden access with custom handlers.
-
-API Endpoints:
-
-Authentication: auth/** endpoints for login and registration.
-
-Task Management: Endpoints for managing tasks and comments.
-
-Swagger Documentation: swagger-ui/** and /v3/api-docs/**.
-
-Development Details
-
-POM Highlights
-
-Key dependencies:
-
-Spring Boot Starter dependencies (Web, Data JPA, Security, Validation)
-
-PostgreSQL driver
-
-Springdoc for OpenAPI documentation
-
-JWT (jjwt-api, jjwt-impl, jjwt-jackson)
-
-Mapstruct and ModelMapper
-
-Security Configuration:
-
-Stateless sessions with Spring Security.
-
-CSRF protection disabled to support RESTful architecture.
-
-AuthenticationManager configured with BCryptPasswordEncoder.
-
-Custom JWTFilter integrated into the security filter chain.
-
-Project Team
-
-[Your Name], Developer
 
